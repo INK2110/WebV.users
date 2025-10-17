@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ประวัติของฉัน</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <!-- ใช้เรียก api  -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <div id="page-history-content"></div> 
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid px-4">
+            <div class="logo-box">LOGO</div>
+            
+            <button class="navbar-toggler menu-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav nav-center">
+                    <li id="menu-home" class="nav-item">
+                        <a class="nav-link nav-btn active" href="/main">หน้า Home</a>
+                    </li>
+                    <li id="menu-totalproblem" class="nav-item">
+                        <a class="nav-link nav-btn" href="/main/problemlist">รวมปัญหาที่แจ้ง</a>
+                    </li>
+                    <li id="menu-mywork" class="nav-item">
+                        <a class="nav-link nav-btn" href="/main/myWorkAssignment">งานของฉัน</a>
+                    </li>
+                    <li id="menu-myhistory" class="nav-item">
+                        <a class="nav-link nav-btn" href="/main/myHistory">ประวัติของฉัน</a>
+                    </li>
+                    <li id="menu-myworkhistory" class="nav-item">
+                        <a class="nav-link nav-btn" href="/main/myWorkHistory">ประวัติการทำงานของฉัน</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container-fluid my-4 px-4">
+        <!-- Page Header -->
+        <!-- <div class="page-header mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="page-title">
+                        <i class="fas fa-clipboard-list me-2"></i>รายการปัญหา (Problems)
+                    </h1>
+                </div>
+                <div class="col-md-6 text-end ">
+                    <div class="btn-group" role="group">
+                        <button class="btn btn-filter active" data-filter="all">
+                            <i class="fas fa-th-list me-1"></i>ทั้งหมด
+                        </button>
+                        <button class="btn btn-filter" data-filter="pending">
+                            <i class="fas fa-hourglass-half me-1"></i>รอดำเนินการ
+                        </button>
+                        <button class="btn btn-filter" data-filter="in-progress">
+                            <i class="fas fa-spinner me-1"></i>กำลังดำเนินการ
+                        </button>
+                        <button class="btn btn-filter" data-filter="completed">
+                            <i class="fas fa-check-circle me-1"></i>เสร็จสิ้น
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Table Container with Scroll -->
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table table-custom">
+                    <thead class="table-header sticky-top">
+                        <tr>
+                            <th style="min-width: 80px;" id="th_id">ID</th>
+                            <th style="min-width: 130px;" id="th_createat">วันที่สร้าง</th>
+                            <!-- <th style="min-width: 150px;" id="th_createby">ผู้สร้าง</th> -->
+                            <th style="min-width: 200px;" id="th_title">ชื่อปัญหา</th>
+                            <th style="min-width: 130px;" id="th_category">หมวดหมู่</th>
+                            <th style="min-width: 250px;" id="th_description" class="col-description">รายละเอียด</th>
+                            <th style="min-width: 120px;" id="th_department">แผนก</th>
+                            <th style="min-width: 140px;" id="th_status">สถานะ</th>
+                            <th style="min-width: 150px;" id="th_priority">ระดับความสำคัญ</th>
+                            <th style="min-width: 150px;" id="th_location">สถานที่</th>
+                            <th style="min-width: 100px;" id="th_comment">Comment</th>
+                        </tr>
+                    </thead>
+                    <tbody id="problemTable">
+                        <!-- Sample Data Row 1 -->
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <div class="text-muted">
+                แสดง 1-3 จาก 3 รายการ
+            </div>
+            <nav>
+                <ul class="pagination mb-0">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#"><i class="fas fa-chevron-left"></i></a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Problem Detail Modal -->
+    <div class="modal fade" id="problemDetailModal" tabindex="-1" aria-labelledby="problemDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content modal-custom">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title" id="problemDetailModalLabel">
+                        <i class="fas fa-info-circle me-2"></i>ชื่องาน
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body modal-body-custom">
+                    <!-- รายละเอียดงาน Section -->
+                    <div class="detail-section mb-4">
+                        <h6 class="section-title-modal">
+                            <strong>รายละเอียดงาน : </strong>
+                            <span id="problemDetail"></span> 
+                        </h6> 
+                            
+                        <div class="detail-box">
+                            <p class="mb-0"><b>พร้อมใส่ที่แนบมา (ถ้ามี) : </b></p>
+                            
+                        </div>
+                    </div>
+
+                    <!-- สถานะงาน Section -->
+                    <div class="status-section mb-3">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="status-label">สถานะงาน :</label>
+                                <div class="status-value">
+                                    <span class="badge status-badge-large status-pending" id="problemStatus"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="status-label">Priority :</label>
+                                <div class="status-value">
+                                    <span class="badge priority-badge-large priority-high" id="problemPriority"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ปุ่มเลือกรับงาน -->
+                    <div class="action-section">
+                        <button class="btn btn-accept-work">
+                            <i class="fas fa-hand-pointer me-2"></i>
+                            คลิกเพื่อรับงานครับ<br>เมื่อ : เวลา
+                        </button>
+                    </div>
+
+                    <!-- พื้นที่ Scrollable -->
+                    <div class="scrollable-content mt-4">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-calendar me-2"></i>วันที่สร้าง:</span>
+                                <span class="info-value" id="createDate"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-user me-2"></i>ผู้สร้าง:</span>
+                                <span class="info-value" id="creater"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-building me-2"></i>แผนก:</span>
+                                <span class="info-value" id="creadtedByDepartment"></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label"><i class="fas fa-map-marker-alt me-2"></i>สถานที่:</span>
+                                <span class="info-value" id="createdLocation"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="../js/fetch.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>

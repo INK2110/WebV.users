@@ -1,0 +1,52 @@
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+   
+}
+.renewPassword {
+    background: linear-gradient(135deg, #fcfaee 100%, #ba7b6b 100%);
+    display: flex;
+    justify-content: center;
+}
+.login-container {
+    margin-top: 50px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    min-width: 300px;
+    max-width:  500px;
+    min-height: 500px;
+    width:  100%;
+    
+}
+.container {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-header h2 {
+    color: #333;
+    font-weight: 600;
+}
+
+.btn-login {
+    margin-top: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    padding: 12px;
+    font-weight: 500;
+}
+
+.btn-login:hover {
+    background: linear-gradient(135deg, #5568d3 0%, #653a8b 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}

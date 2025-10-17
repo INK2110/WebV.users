@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หน้าแจ้งปัญหาใหม่</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    <!-- ใช้เรียก api  -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid px-4">
+            <div class="logo-box d-flex align-items-center justify-content-center">
+                <span class="logo-text">หน้าแจ้งปัญหาใหม่</span>
+            </div>
+            
+            <button class="navbar-toggler menu-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav nav-center">
+                    <li id="menu-home" class="nav-item">
+                        <a class="nav-link nav-btn active" href="/main">หน้า Home</a>
+                    </li>
+                    <li id="menu-totalproblem" class="nav-item">
+                        <a class="nav-link nav-btn" href="/main/problemlist">รวมปัญหาที่แจ้ง</a>
+                    </li>
+                    <li id="menu-mywork" class="nav-item">
+                        <a class="nav-link nav-btn" href="/main/myWorkAssignment">งานของฉัน</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-btn" href="/main/myWorkHistory">ประวัติการทำงานของฉัน</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="form-container p-4">
+            <form id="problemForm">
+                <!-- Row 1: Name and Phone -->
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label-custom">ชื่อ นามสกุล</label>
+                        <input type="text" id="fullname" class="form-control form-control-custom">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label-custom">เบอร์โทร</label>
+                        <input type="tel" id="phone" class="form-control form-control-custom">
+                    </div>
+                </div>
+
+                <!-- Row 2: Problem Name, Type, Department -->
+                <div class="row g-3 mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label-custom">ชื่อปัญหา</label>
+                        <input type="text" id="problemname" class="form-control form-control-custom">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label-custom">ประเภทปัญหา :</label>
+                        <select id="categoryDropdown" class="form-select form-control-custom">
+                            <option value="">-- เลือกประเภท --</option>
+                        <!-- <script src="/js/fetch.js" type="module"></script> -->
+                        <!-- <script>
+                            console.log("Inline JS works!");
+                        </script> -->
+
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label-custom">แผนกผู้ใช้ :</label>
+                        <select id="departmentDropdown"  class="form-select form-control-custom">
+                            <option value="">-- เลือกแผนก --</option>
+                            
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Row 3: Description and Priority -->
+                <div class="row g-3 mb-3">
+                    <div class="col-md-9">
+                        <label class="form-label-custom">รายละเอียดปัญหา</label>
+                        <textarea  id="description" class="form-control form-control-custom" rows="6"></textarea>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label-custom">priority :</label>
+                        <select id="priorityDropdown" class="form-select form-control-custom">
+                            <option value="">-- เลือกความสำคัญ --</option>
+                        </select>
+                        <br>
+                        <label class="form-label-custom">location :</label>
+                        <select id="locationDropdown" class="form-select form-control-custom">
+                            <option value="">-- เลือกสถานที่ --</option>
+                            <option value="ตึก A ชั้น 1">ตึก A ชั้น 1</option>
+                            <option value="ตึก A ชั้น 2">ตึก A ชั้น 2</option>
+                            <option value="ตึก A ชั้น 3">ตึก A ชั้น 3</option>
+                            <option value="ตึก B ชั้น 1">ตึก B ชั้น 1</option>
+                            <option value="ตึก B ชั้น 2">ตึก B ชั้น 2</option>
+                            <option value="ตึก B ชั้น 3">ตึก B ชั้น 3</option>
+                            <option value="ตึก C ชั้น 2">ตึก C ชั้น 2</option>
+                            <option value="ตึก C ชั้น 3">ตึก C ชั้น 3</option>
+                            <option value="ตึก C ชั้น 4">ตึก C ชั้น 4</option>
+                            <option value="ตึก D ชั้น 1">ตึก D ชั้น 1</option>
+                            <option value="ตึก D ชั้น 2">ตึก D ชั้น 2</option>
+                            <option value="ตึก E ชั้น 1">ตึก E ชั้น 1</option>
+                        </select>
+                    </div>
+                    
+                </div>
+
+                <!-- Row 4: File Attachment -->
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <label class="form-label-custom">แนบไฟล์รูปภาพ</label>
+                        <div class="d-flex align-items-center gap-3">
+                            <button id="attachBtn" type="button" class="btn btn-file">+ Attach a file</button>
+                            <input type="file" id="fileInput" name="file" accept=".pdf, .jpg, .jpeg, .png" multiple style="display:none;">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File Preview Area -->
+                <!-- <div class="row g-3 mb-4">
+                    <div class="col-md-4">
+                        <div class="file-preview-box"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="file-preview-box"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="file-preview-box"></div>
+                    </div>
+                </div> -->
+                <div id="previewArea" class="d-flex flex-wrap gap-3"></div>
+
+                <!-- Submit Button -->
+                <div class="row">
+                    <div class="col-12 text-end">
+                        <button type="submit" class="btn btn-submit">ส่ง</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/fetch.js"></script>
+
+</body>
+</html>
