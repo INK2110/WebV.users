@@ -21,8 +21,6 @@ export const redirectIfAuth = (req, res, next) => {
   next(); // ถ้ายังไม่ล็อกอิน ให้ผ่านไปได้ (เพื่อให้เห็นหน้าฟอร์ม)
 };
 
-
-
 export const authGuard = (req, res, next) => {
     // Allow some public paths (login-related and API)
     const openPaths = ["/", "/login", "/logout", "/getUser"];

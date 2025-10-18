@@ -34,68 +34,68 @@ export const getProblemlist = async (req, res) =>  {
 };
 
 // ดึงข้อมูลแบบ pagination + filter status
-export const getProblemlistPaginate = async (req, res) => {
-  try {
-    let { page = 1, status = "all" } = req.query;
-    page = parseInt(page);
-    const limit = 10;
-    const offset = (page - 1) * limit;
+// export const getProblemlistPaginate = async (req, res) => {
+//   try {
+//     let { page = 1, status = "all" } = req.query;
+//     page = parseInt(page);
+//     const limit = 10;
+//     const offset = (page - 1) * limit;
 
-    let whereClause = "";
-    const params = [];
+//     let whereClause = "";
+//     const params = [];
 
-    if (status && status !== "all") {
-      whereClause = `WHERE s.statusstate = $1`;
-      params.push(status);
-    }
+//     if (status && status !== "all") {
+//       whereClause = `WHERE s.statusstate = $1`;
+//       params.push(status);
+//     }
 
-    // ดึงจำนวน total items
-    const totalResult = await pool.query(`
-      SELECT COUNT(*) 
-      FROM Problem p
-      JOIN Status s ON p.statusid = s.statusid
-      ${whereClause};
-    `, params);
-    const totalItems = parseInt(totalResult.rows[0].count);
-    const totalPages = Math.ceil(totalItems / limit);
+//     // ดึงจำนวน total items
+//     const totalResult = await pool.query(`
+//       SELECT COUNT(*) 
+//       FROM Problem p
+//       JOIN Status s ON p.statusid = s.statusid
+//       ${whereClause};
+//     `, params);
+//     const totalItems = parseInt(totalResult.rows[0].count);
+//     const totalPages = Math.ceil(totalItems / limit);
 
-    // ดึงข้อมูลแต่ละหน้า
-    const result = await pool.query(`
-      SELECT 
-        p.problemid,
-        p.title,
-        p.description,
-        p.createat,
-        p.location,
-        CONCAT(u.firstname, ' ', u.lastname) AS createby,
-        c.categoryname,
-        s.statusstate,
-        d.departmentname,
-        sla.prioritylevel,
-        p.comment
-      FROM Problem p
-      JOIN Users u ON p.createby = u.usersid
-      JOIN Category c ON p.categoryid = c.categoryid
-      JOIN Status s ON p.statusid = s.statusid
-      JOIN Department d ON p.departmentid = d.departmentid
-      JOIN ServiceLevelAgreement sla ON p.priorityid = sla.priorityid
-      ${whereClause}
-      ORDER BY p.problemid DESC
-      LIMIT $${params.length + 1} OFFSET $${params.length + 2};
-    `, [...params, limit, offset]);
+//     // ดึงข้อมูลแต่ละหน้า
+//     const result = await pool.query(`
+//       SELECT 
+//         p.problemid,
+//         p.title,
+//         p.description,
+//         p.createat,
+//         p.location,
+//         CONCAT(u.firstname, ' ', u.lastname) AS createby,
+//         c.categoryname,
+//         s.statusstate,
+//         d.departmentname,
+//         sla.prioritylevel,
+//         p.comment
+//       FROM Problem p
+//       JOIN Users u ON p.createby = u.usersid
+//       JOIN Category c ON p.categoryid = c.categoryid
+//       JOIN Status s ON p.statusid = s.statusid
+//       JOIN Department d ON p.departmentid = d.departmentid
+//       JOIN ServiceLevelAgreement sla ON p.priorityid = sla.priorityid
+//       ${whereClause}
+//       ORDER BY p.problemid DESC
+//       LIMIT $${params.length + 1} OFFSET $${params.length + 2};
+//     `, [...params, limit, offset]);
 
-    res.json({
-      data: result.rows,
-      totalItems,
-      totalPages,
-      currentPage: page
-    });
+//     res.json({
+//       data: result.rows,
+//       totalItems,
+//       totalPages,
+//       currentPage: page
+//     });
 
-  } catch (err) {
-    console.error("Database error:", err);
-    res.status(500).json({ error: "Database error" });
-  }
-};
+//   } catch (err) {
+//     console.error("Database error:", err);
+//     res.status(500).json({ error: "Database error" });
+//   }
+// };
 
 export const getProblemlastest = async (req, res) =>  {
   

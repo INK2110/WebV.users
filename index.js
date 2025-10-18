@@ -32,6 +32,7 @@ initMiddleware(app);
 //   credentials: true
 // }));
 
+
 // Serve the /page folder behind auth: any request to /page/* will go through requireAuth
 app.use('/page', requireAuth, express.static(path.join(__dirname, 'public', 'page')));
 

@@ -2,7 +2,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import { getUsers, getUser} from "../controllers/usersController.js";
-import { getProblemlist ,getProblemlistPaginate,getProblemlastest, getMyWorkAssignment ,getMyWorkHistory, addProblem, checkSession, getCategory, getPriority, getDepartment, getMyHistory} from "../controllers/problemController.js";
+import { getProblemlist,getProblemlastest, getMyWorkAssignment ,getMyWorkHistory, addProblem, checkSession, getCategory, getPriority, getDepartment, getMyHistory} from "../controllers/problemController.js";
 import { changePassword, login , logout} from "../controllers/authController.js";
 import { dirname } from "path";
 import path from "path";
@@ -64,8 +64,6 @@ router.get("/main/myHistory", requireAuth , (req, res) => {
 router.get("/main/data",requireAuth, getUser);
 router.get("/main/users/data", requireAuth, getUser);
 router.get("/main/problemlist/data", requireAuth, getProblemlist);
-// ดึงแบบ pagination + filter
-router.get('/main/pblistpaginte/data', requireAuth, getProblemlistPaginate);
 
 router.get("/main/myHistory/data",requireAuth, getMyHistory);
 router.get("/main/myWorkHistory/data",requireAuth, getMyWorkHistory);

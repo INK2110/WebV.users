@@ -7,30 +7,33 @@
 
 body {
     font-family: 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    background: rgb(236, 223, 204);
     min-height: 100vh;
     color: #333;
 }
 
 /* ===== Navbar Styles ===== */
 .navbar-custom {
-    background: white;
+    background-color: white;
     padding: 15px 0;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
+/* ลบขีดข้างใต้ สีเดำเทา */
 .newProblemhref {
     text-decoration: none;
     color: #333;
 }
 
+/* ช่องสวัสดี */
 .user-info-box {
-    background-color: rgb(255, 226, 64);
+    background-color: rgb(218, 131, 89);
     border-radius: 10px;
     
 }
 
+/* ที่แจ้งปัญหา */
 .notification-card {
-    background-color: rgb(255, 171, 14);
+    background-color: rgb(218, 131, 89);
     border-radius: 10px;
 }
 
@@ -61,7 +64,7 @@ body {
 }
 
 .nav-btn {
-    background: linear-gradient(135deg, #FFD400 0%, #FFDD3C 100%) !important;
+    background: #ECDFCC !important;
     color: rgb(0, 0, 0) !important;
     padding: 15px 30px !important;
     border-radius: 10px;
@@ -74,7 +77,7 @@ body {
 
 .nav-btn:hover,
 .nav-btn.active {
-    background: linear-gradient(135deg, #FFD400 0%, #FFDD3C 100%) !important;
+    background: #ECDFCC !important;
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(80, 77, 77, 0.4);
 }
@@ -327,15 +330,15 @@ body {
 
 /* ===== Report Form Page Styles ===== */
 .form-container {
-    background-color: #d4d4d4;
+    background-color: #FCFAEE;
     border-radius: 5px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .form-label-custom {
-    background-color: #808080;
-    color: #333;
+    background-color: #DA8359;
+    color: #FCFAEE;
     padding: 12px 15px;
     margin-bottom: 10px;
     border-radius: 3px;
@@ -348,7 +351,7 @@ body {
 
 .form-control-custom,
 .form-select.form-control-custom {
-    background-color: #7c4dff;
+    background-color: #A5B68D;
     border: none;
     padding: 12px 15px;
     border-radius: 3px;
@@ -362,7 +365,7 @@ body {
 
 .form-control-custom:focus,
 .form-select.form-control-custom:focus {
-    background-color: #7c4dff;
+    background-color: #A5B68D;
     color: #fff;
     border-color: #6a3de8;
     box-shadow: 0 0 0 0.25rem rgba(124, 77, 255, 0.25);
@@ -379,8 +382,9 @@ body {
     color: #333;
 }
 
+/* ปุ่มแนบไฟล์ */
 .btn-file {
-    background-color: #7c4dff;
+    background-color: #A5B68D;
     color: #fff;
     padding: 12px 25px;
     border: none;
@@ -391,7 +395,7 @@ body {
 }
 
 .btn-file:hover {
-    background-color: #6a3de8;
+    background-color: #A5B68D;
     color: #fff;
 }
 
@@ -408,8 +412,8 @@ body {
 }
 
 .btn-submit {
-    background-color: #808080;
-    color: #333;
+    background-color: #DA8359;
+    color: #FCFAEE;
     padding: 15px 50px;
     border: none;
     border-radius: 3px;
@@ -419,8 +423,8 @@ body {
 }
 
 .btn-submit:hover {
-    background-color: #707070;
-    color: #333;
+    background-color: #DA8359;
+    color: #FCFAEE;
 }
 
 /* ===== Problems List Page Styles ===== */
@@ -441,8 +445,8 @@ body {
 
 .btn-filter {
     background: white;
-    color: #667eea;
-    border: 2px solid #667eea;
+    color: #957C62;
+    border: 2px solid #ECDFCC;
     padding: 8px 20px;
     font-size: 14px;
     font-weight: 600;
@@ -451,7 +455,7 @@ body {
 
 .btn-filter:hover,
 .btn-filter.active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #DA8359;
     color: white;
     border-color: transparent;
 }
@@ -613,7 +617,7 @@ body {
 }
 
 .table-responsive::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #DA8359;
     border-radius: 10px;
 }
 

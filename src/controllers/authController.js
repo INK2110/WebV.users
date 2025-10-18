@@ -52,7 +52,7 @@ export const login = async (req, res) => {
       ispasswordchange: u.ispasswordchange,
     };
 
-    console.log('ข้อมูล Session User:', req.user);
+    console.log('ข้อมูล Session User:', req.session.user);
   if(u.ispasswordchange === false){
     const filePath = path.join(__dirname, "../../public/page/newPassword.html");
     return res.sendFile(filePath);
