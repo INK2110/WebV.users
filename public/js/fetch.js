@@ -413,7 +413,9 @@ axios.get("/main/users/data")
 
     // ================== //
     // ฟังก์ชันสร้าง row ของ table
+    
     function renderTable(data) {
+    if (!tableBody) return; // ถ้าไม่มี tableBody ให้ return ทันที // ป้องกัน error ถ้า tableBody เป็น null
     tableBody.innerHTML = "";
     data.forEach(item => {
       const tr = document.createElement("tr");
